@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Transcribe - A shell script to transcribe audio with Whisper API
+# Usage: ./transcribe [audio file] [options]
+
+# Set script directory to find main.py regardless of where transcribe is called from
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Check if at least one argument is provided
+if [ $# -lt 1 ]; then
+    echo "Error: Missing audio file path"
+    echo "Usage: ./transcribe [audio file] [options]"
+    echo "Example: ./transcribe /path/to/audio.mp3 --model whisper-1"
+    exit 1
+fi
+
+# Get the audio file path (first argument)
+AUDIO_FILE="$1"
+shift  # Remove first argument, keeping any remaining options
+
+# Check if the audio file exists
+if [ ! -f "$AUDIO_FILE" ]; then
+    echo "Error: Audio file not found: $AUDIO_FILE"
+    exit 1
+fi
+
+# Run the transcription script using Poetry
+# The main.py script will automatically handle splitting for long audio files
+echo "Running Whisper transcription on $AUDIO_FILE..."
+cd "$SCRIPT_DIR" && poetry run python main.py "$AUDIO_FILE" "$@" 

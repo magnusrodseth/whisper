@@ -216,9 +216,9 @@ def main():
     parser.add_argument("audio_file", help="Path to the audio file to transcribe")
     parser.add_argument(
         "--model", 
-        default="gpt-4o-transcribe", 
+        default="whisper-1", 
         choices=["whisper-1", "gpt-4o-mini-transcribe", "gpt-4o-transcribe"],
-        help="Model to use for transcription (default: gpt-4o-transcribe)"
+        help="Model to use for transcription (default: whisper-1)"
     )
     parser.add_argument(
         "--chunk-length", 
